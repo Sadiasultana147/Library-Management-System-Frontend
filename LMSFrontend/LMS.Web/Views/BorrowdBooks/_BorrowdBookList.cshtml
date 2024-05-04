@@ -1,0 +1,40 @@
+﻿@model List<LMS.Model.BorrowdBooks>
+@{
+    Layout = null;
+}
+<div class="card ">
+    <div class="card-header bg-primary text-white">
+        Book List
+    </div>
+    <div class="card-body">
+        <table class="table tblBorrowdBook">
+            <thead>
+                <tr>
+                    <th>Member</th>
+                    <th>Book</th>
+                    <th>Borrow Date</th>
+                    <th>Return Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var book in Model)
+                {
+                    <tr>
+                        <td>@book.MemberName</td>
+                        <td>@book.BookName</td>
+                        <td>@book.BorrowDate.Value.ToString("yyyy-MM-dd")</td>
+                        <td>@book.ReturnDate.Value.ToString("yyyy-MM-dd")</td>
+                        <td>@book.status</td>                       
+                        <td>
+                            <a href="@Url.Action("EditBorrowdBook", "BorrowdBooks", new { id = book.BorrowID })" class="btn btn-primary">Edit</a>
+                            <button onclick="DeleteBorrowdBook('@book.BorrowID')" class="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

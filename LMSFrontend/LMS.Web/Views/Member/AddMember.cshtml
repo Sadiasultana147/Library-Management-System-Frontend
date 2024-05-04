@@ -1,0 +1,170 @@
+﻿@model LMS.Model.MemberModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var successMessage = TempData["SuccessMessage"] as string;
+    var errorMessage = TempData["ErrorMessage"] as string;
+}
+<div class="container">
+    <div class="content">
+        @if (!string.IsNullOrEmpty(successMessage))
+        {
+            <div class="alert alert-success" role="alert">
+                @successMessage
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="alert alert-danger" role="alert">
+                @errorMessage
+            </div>
+        }
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                Member Form
+            </div>
+            <div class="card-body">
+                <form id="memberForm" method="post" asp-controller="Member" asp-action="AddOrUpdateMember">
+                    <input type="hidden" asp-for="MemberID" />
+
+                    <!-- First Row -->
+                    <div class="form-group row">
+                        <div class="col-sm-3">
+                            <label for="firstName" class="col-form-label">
+                                First Name <span class="text-red text" aria-hidden="true">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="firstName" name="FirstName" value="@Model?.FirstName" required>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <label for="lastName" class="col-form-label">
+                                Last Name <span class="text-red text" aria-hidden="true">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="lastName" name="LastName" value="@Model?.LastName" required>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <label for="email" class="col-form-label">
+                                Email 
+                            </label>
+                            <input type="email" class="form-control" id="email" name="Email" value="@Model?.Email">
+                        </div>
+
+                        <div class="col-sm-3">
+                            <label for="phoneNumber" class="col-form-label">
+                                Phone Number <span class="text-red text" aria-hidden="true">*</span>
+                            </label>
+                            <input type="tel" class="form-control" id="phoneNumber" name="PhoneNumber" value="@Model?.PhoneNumber" required>
+                        </div>
+                    </div>
+
+                    <!-- Second Row -->
+                    <div class="form-group row">
+                        <div class="col-sm-3">
+                            <label for="registrationDate" class="col-form-label">
+                                Registration Date <span class="text-red text" aria-hidden="true">*</span>
+                            </label>
+                            <div class="input-group date" data-provide="datepicker">
+                                <input type="text" class="form-control" id="registrationDateInput" name="RegistrationDate" required value="@((Model?.RegistrationDate != null) ? Model.RegistrationDate.Value.ToString("yyyy-MM-dd") : "")">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Additional Fields Go Here -->
+
+                        <div class="col-sm-1">
+                            <div class="row" style="margin-top: 37px;">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary">@(Model?.MemberID == 0 ? "Submit" : "Update")</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-4" id="MemberList">
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
+@section scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+                GetMemberList();
+            $('.date').datepicker({
+                dateFormat: 'yy-mm-dd',
+                onSelect: function (dateText) {
+                    $(this).val(dateText);
+                }
+            });
+        });
+        function submitForm() {
+
+            var formData = $('#memberForm').serialize();
+            $.ajax({
+                url: '@Url.Action("AddOrUpdateMember", "Member")',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+
+                        GetMemberList();
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                    alert('submitted Failled!');
+                }
+            });
+        }
+        function GetMemberList() {
+            $("#MemberList").html("");
+
+            $.ajax({
+                type: "POST",
+                url: "/Member/MemberList",
+                success: function (response) {
+                    $("#MemberList").html(response);
+                    $('#tblMemebr').DataTable({
+                        "paging": true,
+                        "pageLength": 10,
+                        "lengthChange": true,
+                        "searching": true,
+                        "ordering": false,
+                        "info": true,
+                        "autoWidth": false,
+                        "responsive": true,
+                    });
+                }
+            })
+        }
+        function DeleteMember(id) {
+            if (confirm('Are you sure to delete this member?')) {
+                $.ajax({
+                    url: '/Member/DeleteMember/' + id,
+                    type: 'DELETE',
+                    success: function (result) {
+                        window.location.reload();
+                    },
+                    error: function (xhr, status, error) {
+
+                        alert(xhr.responseText);
+                    }
+                });
+            }
+        }
+        function fncCheckDigit(el) {
+            el.value = el.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+        }
+
+
+    </script>
+}

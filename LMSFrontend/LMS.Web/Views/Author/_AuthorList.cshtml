@@ -1,0 +1,34 @@
+﻿@model IEnumerable<LMS.Model.AuthorModel>
+@{
+    Layout = null; 
+}
+<div class="card ">
+    <div class="card-header bg-primary text-white">
+        Author List
+    </div>
+    <div class="card-body">
+        <table class="table tblAuthor">
+            <thead>
+                <tr>
+                    <th>Author Name</th>
+                    <th>Author Bio</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var book in Model)
+                {
+                    <tr>
+                        <td>@book.AuthorName</td>
+                        <td>@book.AuthorBio</td>                       
+                        <td>
+                            <a href="@Url.Action("EditAuthor", "Author", new { id = book.AuthorID })" class="btn btn-primary">Edit</a>
+                            <button onclick="DeleteAuthor('@book.AuthorID')" class="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
