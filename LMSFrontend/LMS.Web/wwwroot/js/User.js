@@ -30,9 +30,10 @@
             url: '/User/RegisterUser',
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify(formData), // Serialize formData to JSON
+            data: JSON.stringify(formData), 
             success: function (response) {
                 alert('User registered successfully!');
+                window.location.reload();
             },
             error: function (xhr, status, error) {
                 console.error(xhr.responseText);

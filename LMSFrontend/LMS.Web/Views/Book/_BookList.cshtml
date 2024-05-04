@@ -2,6 +2,10 @@
 @{
     Layout = null; 
 }
+@{
+     var role = TempData.Peek("Role") as string;
+    var userId = TempData.Peek("UserId") as int?;
+}
     <div class="card ">
         <div class="card-header bg-primary text-white">
             Book List
@@ -29,10 +33,13 @@
                                     <td>@book.ISBN</td>                  
                                     <td>@book.AvailableCopies</td>                  
                                     <td>@book.TotalCopies</td>
-                                    <td>
-                                        <a href="@Url.Action("EditBook", "Book", new { id = book.BookID })" class="btn btn-primary">Edit</a>
-                                        <button onclick="DeleteBook('@book.BookID')" class="btn btn-danger">Delete</button>
-                                    </td>
+                                     @if(userId!=null && role == "Admin")
+                                     {
+                                        <td>
+                                            <a href="@Url.Action("EditBook", "Book", new { id = book.BookID })" class="btn btn-primary">Edit</a>
+                                            <button onclick="DeleteBook('@book.BookID')" class="btn btn-danger">Delete</button>
+                                        </td>
+                                    }
                                 </tr>
                         }
                     </tbody>

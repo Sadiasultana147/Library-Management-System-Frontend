@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "P77qkNMwkoURn1i6Vhvff0kWY5h9kBVEA7mooAECMhCUd9uTnRPBKXECmWvoeIYeDhqC1NS7qp6bFWxGd6LheQ==",
+  "dgSpecHash": "9+UDLZ97bN+m96CANXiOfr73nYoNrvozHwsiK6nnNkc6Wflo+ng8oX9r3G7aZMbGf5aag03j/iPiTALr4dWBNA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\HP\\Music\\LMSFrontend\\LMS.Model\\LMS.Model.csproj",
+  "projectFilePath": "C:\\Users\\HP\\Music\\Library-Management-System-Frontend\\LMSFrontend\\LMS.Model\\LMS.Model.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HP\\.nuget\\packages\\entityframework\\6.1.0\\entityframework.6.1.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnet.identity.core\\2.2.4\\microsoft.aspnet.identity.core.2.2.4.nupkg.sha512",

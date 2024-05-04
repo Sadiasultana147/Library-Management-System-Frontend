@@ -6,6 +6,8 @@
 @{
     var successMessage = TempData["SuccessMessage"] as string;
     var errorMessage = TempData["ErrorMessage"] as string;
+    var role = TempData.Peek("Role") as string;
+    var userId = TempData.Peek("UserId") as int?;
 }
 <div class="container">
     <div class="content">
@@ -26,80 +28,84 @@
         <div class="card-header bg-info text-white">
             Book Form
         </div>
-        <div class="card-body">
-            <form id="bookForm" method="post" asp-controller="Book" asp-action="AddOrUpdateBook">
-                <input type="hidden" asp-for="BookID" />
+            @if(userId!=null && role == "Admin")
+            {
+                <div class="card-body">
+                    <form id="bookForm" method="post" asp-controller="Book" asp-action="AddOrUpdateBook">
+                        <input type="hidden" asp-for="BookID" />
 
-                <!-- First Row -->
-                <div class="form-group row">
-                    <div class="col-sm-3">
-                        <label for="title" class="col-form-label">
-                            Title <span class="text-red text" aria-hidden="true">*</span>
-                        </label>
-                        <input type="text" class="form-control" id="title" name="Title" value="@Model?.Title" required>
-                    </div>
-
-                        <div class="col-sm-3">
-                            <label for="author" class="col-form-label">
-                                Author <span class="text-red text" aria-hidden="true">*</span>
-                            </label>
-                            <div class="form-group">
-                               
-                                @Html.DropDownListFor(model => model.AuthorID, Model.AuthorList, "Select", new { @class = "form-control", id = "author", required = "required" })
+                        <!-- First Row -->
+                        <div class="form-group row">
+                            <div class="col-sm-3">
+                                <label for="title" class="col-form-label">
+                                    Title <span class="text-red text" aria-hidden="true">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="title" name="Title" value="@Model?.Title" required>
                             </div>
-                        </div>
 
+                            <div class="col-sm-3">
+                                <label for="author" class="col-form-label">
+                                    Author <span class="text-red text" aria-hidden="true">*</span>
+                                </label>
+                                <div class="form-group">
 
-                        <div class="col-sm-3">
-                            <label for="publishedDate" class="col-form-label">
-                                Published Date <span class="text-red text" aria-hidden="true">*</span>
-                            </label>
-                            <div class="input-group date" data-provide="datepicker">
-                                <input type="text" class="form-control" id="publishedDateInput" name="PublishedDate" required value="@((Model?.PublishedDate != null) ? Model.PublishedDate.Value.ToString("yyyy-MM-dd") : "")">
-                                <div class="input-group-addon">
-                                    <span class="glyphicon glyphicon-th"></span>
+                                    @Html.DropDownListFor(model => model.AuthorID, Model.AuthorList, "Select", new { @class = "form-control", id = "author", required = "required" })
                                 </div>
                             </div>
+
+
+                            <div class="col-sm-3">
+                                <label for="publishedDate" class="col-form-label">
+                                    Published Date <span class="text-red text" aria-hidden="true">*</span>
+                                </label>
+                                <div class="input-group date" data-provide="datepicker">
+                                    <input type="text" class="form-control" id="publishedDateInput" name="PublishedDate" required value="@((Model?.PublishedDate != null) ? Model.PublishedDate.Value.ToString("yyyy-MM-dd") : "")">
+                                    <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-th"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-sm-3">
+                                <label for="iSBN" class="col-form-label">
+                                    ISBN <span class="text-red text" aria-hidden="true">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="iSBN" name="ISBN" value="@Model?.ISBN" required>
+                            </div>
                         </div>
 
+                        <!-- Second Row -->
+                        <div class="form-group row">
+                            <div class="col-sm-3">
+                                <label for="availableCopies" class="col-form-label">
+                                    Available Copies <span class="text-red text" aria-hidden="true">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="availableCopies" name="AvailableCopies" value="@Model?.AvailableCopies" required onkeyup="fncCheckDigit(this)">
+                            </div>
 
+                            <div class="col-sm-3">
+                                <label for="totalCopies" class="col-form-label">
+                                    Total Copies <span class="text-red text" aria-hidden="true">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="totalCopies" name="TotalCopies" value="@Model?.TotalCopies" required onkeyup="fncCheckDigit(this)">
+                            </div>
 
-                    <div class="col-sm-3">
-                        <label for="iSBN" class="col-form-label">
-                            ISBN <span class="text-red text" aria-hidden="true">*</span>
-                        </label>
-                            <input type="text" class="form-control" id="iSBN" name="ISBN" value="@Model?.ISBN" required>
-                    </div>
+                            <div class="col-sm-1">
+                                <div class="row" style="margin-top:37px">
+                                    <div class="col-md-12">
+
+                                        <button type="submit" class="btn btn-primary">@(Model?.BookID == 0 ? "Submit" : "Update")</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
                 </div>
-
-                <!-- Second Row -->
-                <div class="form-group row">
-                    <div class="col-sm-3">
-                        <label for="availableCopies" class="col-form-label">
-                            Available Copies <span class="text-red text" aria-hidden="true">*</span>
-                        </label>
-                        <input type="text" class="form-control" id="availableCopies" name="AvailableCopies" value="@Model?.AvailableCopies" required onkeyup="fncCheckDigit(this)">
-                    </div>
-
-                    <div class="col-sm-3">
-                        <label for="totalCopies" class="col-form-label">
-                            Total Copies <span class="text-red text" aria-hidden="true">*</span>
-                        </label>
-                            <input type="text" class="form-control" id="totalCopies" name="TotalCopies" value="@Model?.TotalCopies" required onkeyup="fncCheckDigit(this)">
-                    </div>
-
-                    <div class="col-sm-1">
-                        <div class="row" style="margin-top:37px">
-                            <div class="col-md-12">
-
-                        <button type="submit" class="btn btn-primary">@(Model?.BookID == 0 ? "Submit" : "Update")</button>
-                        </div>
-                        </div>
-                    </div>
-
-                </div>
-            </form>
-        </div>
+            }
+           
     </div>
     </div>
 </div>

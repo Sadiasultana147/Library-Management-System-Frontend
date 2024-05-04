@@ -9781,11 +9781,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HP\\Music\\LMSFrontend\\LMS.Web\\LMS.Web.csproj",
+      "projectUniqueName": "C:\\Users\\HP\\Music\\Library-Management-System-Frontend\\LMSFrontend\\LMS.Web\\LMS.Web.csproj",
       "projectName": "LMS.Web",
-      "projectPath": "C:\\Users\\HP\\Music\\LMSFrontend\\LMS.Web\\LMS.Web.csproj",
+      "projectPath": "C:\\Users\\HP\\Music\\Library-Management-System-Frontend\\LMSFrontend\\LMS.Web\\LMS.Web.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HP\\Music\\LMSFrontend\\LMS.Web\\obj\\",
+      "outputPath": "C:\\Users\\HP\\Music\\Library-Management-System-Frontend\\LMSFrontend\\LMS.Web\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -9808,8 +9808,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\HP\\Music\\LMSFrontend\\LMS.Model\\LMS.Model.csproj": {
-              "projectPath": "C:\\Users\\HP\\Music\\LMSFrontend\\LMS.Model\\LMS.Model.csproj"
+            "C:\\Users\\HP\\Music\\Library-Management-System-Frontend\\LMSFrontend\\LMS.Model\\LMS.Model.csproj": {
+              "projectPath": "C:\\Users\\HP\\Music\\Library-Management-System-Frontend\\LMSFrontend\\LMS.Model\\LMS.Model.csproj"
             }
           }
         }

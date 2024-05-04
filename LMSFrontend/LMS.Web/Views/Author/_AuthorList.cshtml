@@ -2,6 +2,11 @@
 @{
     Layout = null; 
 }
+@{
+   
+    var role = TempData.Peek("Role") as string;
+    var userId = TempData.Peek("UserId") as int?;
+}
 <div class="card ">
     <div class="card-header bg-primary text-white">
         Author List
@@ -20,11 +25,15 @@
                 {
                     <tr>
                         <td>@book.AuthorName</td>
-                        <td>@book.AuthorBio</td>                       
-                        <td>
+                        <td>@book.AuthorBio</td>   
+                        @if(userId!=null && role == "Admin")
+                        {
+                            <td>
                             <a href="@Url.Action("EditAuthor", "Author", new { id = book.AuthorID })" class="btn btn-primary">Edit</a>
                             <button onclick="DeleteAuthor('@book.AuthorID')" class="btn btn-danger">Delete</button>
                         </td>
+                        }
+                        
                     </tr>
                 }
             </tbody>

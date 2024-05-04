@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "262VAf1fPp9FY9AjoguCsHvgSMq7EJyebeDRpnVW7rc//+sD6gKPQTKIns+J2DbOZDYlSKA8lXWLjQfLcP3WBw==",
+  "dgSpecHash": "QwwpzUnm2WY8FvLSkpvRxbBgVJfS+bsupTiqOeOUEvkrL3d+Xe9MUrq9fynbAL5PlqdO0ZAUkpWfbgu5Wqa8sw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\HP\\Music\\LMSFrontend\\LMS.Web\\LMS.Web.csproj",
+  "projectFilePath": "C:\\Users\\HP\\Music\\Library-Management-System-Frontend\\LMSFrontend\\LMS.Web\\LMS.Web.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HP\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

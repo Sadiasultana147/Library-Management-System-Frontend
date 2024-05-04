@@ -37,20 +37,20 @@ namespace LMS.Web.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToAction("Login", "User");
+
+                    return RedirectToAction(nameof(Login));
                 }
                 else
                 {
-                    
                     return StatusCode((int)response.StatusCode, "User registration failed");
                 }
             }
             catch (Exception ex)
             {
-               
                 return StatusCode(500, "An error occurred while registering the user");
             }
         }
+
         public IActionResult Login()
         {
             LoginModel model = new LoginModel();
@@ -70,10 +70,9 @@ namespace LMS.Web.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
-                    // Read the response content
+                    
                     var content = await response.Content.ReadAsStringAsync();
 
-                    // Deserialize the user object from the response
                     var user = JsonSerializer.Deserialize<UserModel>(content);
                     var userId = HttpContext.Session.GetInt32("UserId");
                     var email = HttpContext.Session.GetString("Email");
